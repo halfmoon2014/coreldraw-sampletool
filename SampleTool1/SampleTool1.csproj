@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F642EDD1-9D30-4DE8-B3D8-9732C4089891}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SampleTool1</RootNamespace>
+    <AssemblyName>SampleTool1</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>.\resources.rct</Win32Resource>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Corel.Interop.VGCore, Version=17.1.0.522, Culture=neutral, PublicKeyToken=e4835428e22ad6f9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Addon.cs" />
+    <Compile Include="SampleTool1.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Content Include="AppUI.xslt" />
+    <Content Include="config.xml" />
+    <Content Include="Readme.txt" />
+    <Content Include="resources.rct" />
+    <Content Include="UserUI.xslt" />
+    <Content Include="CorelDrw.addon" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Designer.addon" />
+  </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "$CorelProgramDir$Addons\$(SolutionName)" md "$CorelProgramDir$Addons\$(SolutionName)"
+copy "$(ProjectDir)CorelDrw.addon" "$CorelProgramDir$Addons\$(SolutionName)" /y
+copy "$(ProjectDir)Designer.addon" "$CorelProgramDir$Addons\$(SolutionName)" /y
+copy "$(ProjectDir)AppUI.xslt" "$CorelProgramDir$Addons\$(SolutionName)" /y
+copy "$(ProjectDir)UserUI.xslt" "$CorelProgramDir$Addons\$(SolutionName)" /y
+copy "$(ProjectDir)config.xml" "$CorelProgramDir$Addons\$(SolutionName)" /y
+copy "$(TargetPath)" "$CorelProgramDir$Addons\$(SolutionName)\$(SolutionName).CorelAddon"
+if $(ConfigurationName) == Debug copy "$(TargetDir)\$(SolutionName).pdb" "$CorelProgramDir$Addons\$(SolutionName)\$(SolutionName).pdb"
+echo -------------------------------------------------------------------------------------------------
+echo Copied files to $CorelProgramDir$Addons\$(SolutionName)\
+echo -------------------------------------------------------------------------------------------------
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

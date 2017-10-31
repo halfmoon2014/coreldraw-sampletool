@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config>
+	<resources>
+		<resource name="SampleTool1" path="SampleTool1.CorelAddon">
+			<resourceMap>
+				<!-- Toolbox icon and string resource -->
+				<resEntry id="b321fc93-9672-456e-9a18-2ba25c8e89cc" string="10223" icon="104"/>
+      </resourceMap>
+		</resource>
+	</resources>
+</config>
